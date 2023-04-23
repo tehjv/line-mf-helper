@@ -1,30 +1,31 @@
 export type AssistCard = {
   details: {
-    rarity: CardRarity;
-    aura: AuraColor;
+    rarity: CardRarity; // enum val SSR, SR, R
+    aura: AuraColor; // enum val Red, Blue, etc.
     type: CardType;
     alias: string;
   };
   basicEffects: FriendBasicEffects | MonsterBasicEffects;
-  tournamentBonus?: string;
-  tournamentPrizeMoney?: string;
-  errantryEffect?: string;
   assistEffects: {
-    auraErrantryUp: string;
-  };
+    assistType: string;
+    assistValue: string;
+    unlockCondition: 0 | 1 | 2 | 3 | 4;
+  }[];
 };
 
-type FriendBasicEffects = {
+type BasicEffect = {
   initialBond: number;
-  tournamentBonus?: string;
+};
+
+type FriendBasicEffects = BasicEffect & {
+  tournamentBonus: string;
   tournamentPrizeMoney?: string;
-  errantryEffect?: string;
+  errantryEffect: string;
 };
 
-type MonsterBasicEffects = {
-  initialBond: number;
+type MonsterBasicEffects = BasicEffect & {
   supportEffect: string;
   specialtyRate: string;
   initialStatGain: number;
-  boostedStat: Stat;
+  boostedStat: Stat; // not exactly a field in the card
 };
